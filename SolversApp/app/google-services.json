@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "328530023568",
+    "firebase_url": "https://solvers-b2193.firebaseio.com",
+    "project_id": "solvers-b2193",
+    "storage_bucket": "solvers-b2193.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:328530023568:android:584cc62e56bed003c43415",
+        "android_client_info": {
+          "package_name": "com.example.solvers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "328530023568-1v0sgjj9n2mk3dhf0drccscm0mek6u5f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgwH2TR7dXGZlAFhga8U736PAwQLAXP5s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "328530023568-1v0sgjj9n2mk3dhf0drccscm0mek6u5f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
