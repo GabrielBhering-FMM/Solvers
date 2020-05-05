@@ -22,11 +22,14 @@ import com.google.firebase.auth.FirebaseUser;
 import org.w3c.dom.CDATASection;
 
 public class MainActivity extends AppCompatActivity {
-    private FirebaseAuth mAuth;
+
+    private String userUsername = RegisterActivity.username_geral;
+    private String userEmail = RegisterActivity.email_geral;
+    private String userPswd = RegisterActivity.senha_geral;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mAuth = FirebaseAuth.getInstance();
 
         Button btLogin = (Button) findViewById(R.id.btLogin);
         Button btCad = (Button) findViewById(R.id.btLogin2);
@@ -37,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
                 TextView txtPw = (TextView) findViewById(R.id.txtPw);
                 String email = txtUser.getText().toString();
                 String pw = txtPw.getText().toString();
-                if(email.equals(RegisterActivity.email_geral) && pw.equals(RegisterActivity.senha_geral)){
-                    alert("Logou!");
+                if(email.equals(userEmail) && pw.equals(userPswd)){
+                    launchHomeActivity(userUsername, userEmail, userPswd);
                 }
                 else{
                     alert("Não logou :(");
@@ -58,10 +61,20 @@ public class MainActivity extends AppCompatActivity {
     private void alert(String s){
         Toast.makeText(this,s,Toast.LENGTH_LONG).show();
     }
+
     public void LaunchActivity(){
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
+        finish();
+    }
 
+    public void launchHomeActivity(String username, String email, String pswd){
+        Intent intent = new Intent(this, Home.class);
+        intent.putExtra("username", username);
+        intent.putExtra("email", email);
+        intent.putExtra("password", pswd);
+        startActivity(intent);
+        finish();
     }
 
 }
