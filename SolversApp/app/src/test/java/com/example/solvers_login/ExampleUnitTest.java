@@ -1,4 +1,4 @@
-package com.example.solvers;
+package com.example.solvers_login;
 
 import org.junit.Test;
 

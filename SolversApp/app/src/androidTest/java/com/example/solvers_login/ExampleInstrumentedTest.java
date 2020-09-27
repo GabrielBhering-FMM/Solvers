@@ -1,4 +1,4 @@
-package com.example.solvers;
+package com.example.solvers_login;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("com.example.solvers", appContext.getPackageName());
+        assertEquals("com.example.solvers_login", appContext.getPackageName());
     }
 }

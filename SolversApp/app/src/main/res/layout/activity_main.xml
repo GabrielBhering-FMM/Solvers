@@ -1,78 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity" >
+    tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/textView5"
+        android:textColor="#E6AD58"
+        android:id="@+id/view_logo"
         android:layout_width="match_parent"
-        android:layout_height="109dp"
-        android:text="" />
+        android:layout_height="154dp"
+        android:gravity="center"
+        android:text="@string/view_solvers"
+        android:textAllCaps="false"
+        android:textSize="24sp"
+        android:textStyle="bold|italic" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/textView"
         android:layout_width="match_parent"
-        android:layout_height="151dp"
-        android:fontFamily="@font/heebo_bold"
-        android:text="Solvers"
-        android:textAlignment="center"
-        android:textSize="30sp" />
+        android:layout_height="58dp"
+        android:gravity="center"
+        android:text="@string/view_cadastro" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/txt_email"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="20dp"
-        android:orientation="vertical">
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/txt_e_mail"
+        android:inputType="textEmailAddress" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/email" />
+    <EditText
+        android:id="@+id/txt_senha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/txt_senha"
+        android:inputType="textPassword" />
 
-        <EditText
-            android:id="@+id/txtUser"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="" />
+    <Button
+        android:id="@+id/btn_cad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_cad" />
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/Senha" />
-
-        <EditText
-            android:id="@+id/txtPw"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPassword" />
-
-        <Button
-            android:id="@+id/btLogin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/Entrar"
-            android:background="@color/colorAccent"
-            android:layout_gravity="center"/>
-
-        <Button
-            android:id="@+id/btLogin2"
-            android:layout_marginTop="10dp"
-            android:layout_width="410dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@color/colorAccent"
-            android:text="@string/Cad" />
-
-    </LinearLayout>
+    <TextView
+        android:id="@+id/txt_ja_tem_cad"
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        android:gravity="center"
+        android:text="@string/txt_possuo_cadastro" />
 
 </LinearLayout>

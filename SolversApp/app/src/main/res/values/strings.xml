@@ -1,31 +1,18 @@
 <resources>
-    <string name="app_name">Solvers App</string>
-    <string name="Senha">Senha</string>
-    <string name="Nome">Nome</string>
-    <string name="Entrar">Entrar</string>
-    <string name="Cad">Não tenho conta ainda</string>
-    <string name="CadNome">Nome de usuário</string>
-    <string name="CadSenha">Sua senha</string>
-    <string name="senhadnv">Sua senha novamente</string>
-    <string name="CadEmail">Seu E-mail</string>
-    <string name="cadastro">Cadastro</string>
-    <string name="title_activity_register">Sign in</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
-    <string name="btCadastrar">Cadastrar</string>
-    <string name="email">E-mail</string>
-    <string name="title_activity_login">LoginActivity</string>
-    <!--
-    This string is used for square devices and overridden by hello_world in
-    values-round/strings.xml for round devices.
-    -->
-    <string name="hello_world">Hello Square World!</string>
-
-
+    <string name="app_name">solvers-login</string>
+    <string name="view_solvers">Solvers</string>
+    <string name="txt_e_mail">E-mail</string>
+    <string name="txt_senha">Senha</string>
+    <string name="btn_cad">Cadastrar</string>
+    <string name="btn_login">Entrar</string>
+    <string name="txt_possuo_cadastro">Já possuo cadastro</string>
+    <string name="txt_nao_tem_cadastro">Não possui cadastro?</string>
+    <string name="txt_logou">Você logou</string>
+    <string name="view_cadastro">Cadastro</string>
+    <string name="view_login">Login</string>
+    <string name="btn_forgotpw">Enviar</string>
+    <string name="txt_forgotpw">E-mail</string>
+    <string name="txt_info_pw">Para recuperar sua senha, informe seu e-mail abaixo e siga as instruções</string>
+    <string name="txt_esquecipw">Esqueceu sua senha?</string>
+    <string name="view_voltarpw">Voltar</string>
 </resources>
