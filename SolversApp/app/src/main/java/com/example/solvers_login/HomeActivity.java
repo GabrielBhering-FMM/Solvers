@@ -23,12 +23,13 @@ public class HomeActivity extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
+            FirebaseAuth.getInstance().signOut();
 
-                Intent HomeToMain = new Intent(HomeActivity.this, MainActivity.class);
-                startActivity(HomeToMain);
-                finish();
+            Intent HomeToMain = new Intent(getApplicationContext(), MainActivity.class);
+            HomeToMain.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 
+            startActivity(HomeToMain);
+            finish();
             }
         });
     }

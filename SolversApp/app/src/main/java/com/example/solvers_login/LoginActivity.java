@@ -2,33 +2,46 @@ package com.example.solvers_login;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
-    EditText emailId, password;
+    TextInputEditText emailId, password;
     Button btnSignIn;
     TextView tvSignUp;
     FirebaseAuth mFirebaseAuth;
     TextView esquecisenha;
+
+    ProgressBar pd;
+
     private  FirebaseAuth.AuthStateListener mAuthStateListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        pd = findViewById(R.id.progressBar);
+        pd.setIndeterminate(true);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         emailId = findViewById(R.id.txt_email_login);
@@ -40,56 +53,57 @@ public class LoginActivity extends AppCompatActivity {
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
-                if(mFirebaseUser != null){
-                    Intent i = new Intent(LoginActivity.this, HomeActivity.class);
-                    startActivity(i);
-                    finish();
-                }
+            FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
+            if(mFirebaseUser != null){
+                Intent i = new Intent(getApplicationContext(), HomeActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(i);
+                LoginActivity.this.finish();
+            }
             }
         };
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = emailId.getText().toString();
-                String pwd = password.getText().toString();
-                if(email.isEmpty()){
-                    emailId.setError("E-mail não informado");
-                    emailId.requestFocus();
-                }
-                else if(pwd.isEmpty()){
-                    password.setError("Senha não informada");
-                }
-                else if(email.isEmpty() && pwd.isEmpty()){
-                    Toast.makeText(LoginActivity.this,"Campos vazios", Toast.LENGTH_SHORT).show();
-                }
-                else if(!(email.isEmpty() && pwd.isEmpty())){
-                    mFirebaseAuth.signInWithEmailAndPassword(email,pwd).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(!task.isSuccessful()){
-                                Toast.makeText(LoginActivity.this,"Beep Bop... Erro!", Toast.LENGTH_SHORT).show();
+            String email = emailId.getText().toString();
+            String pwd = password.getText().toString();
 
-                            }
-                            else{
-                                Intent intToHome = new Intent(LoginActivity.this, HomeActivity.class);
-                                startActivity(intToHome);
-                                finish();
-                            }
-                        }
-                    });
+            pd.setVisibility(View.VISIBLE);
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
-
-                }
+            if(email.isEmpty()){
+                emailId.setError("E-mail não informado");
+                emailId.requestFocus();
+            }
+            else if(pwd.isEmpty()){
+                password.setError("Senha não informada");
+            }
+            else {
+                mFirebaseAuth.signInWithEmailAndPassword(email,pwd).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                    if(!task.isSuccessful()){
+                        Toast.makeText(LoginActivity.this,"Erro de autenticação", Toast.LENGTH_SHORT).show();
+                        pd.setVisibility(View.INVISIBLE);
+                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    }
+                    else{
+                        Intent intToHome = new Intent(getApplicationContext(), HomeActivity.class);
+                        intToHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intToHome);
+                        LoginActivity.this.finish();
+                    }
+                    }
+                });
+            }
             }
         });
 
         tvSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(i);
                 finish();
             }
         });
@@ -97,9 +111,9 @@ public class LoginActivity extends AppCompatActivity {
         esquecisenha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(LoginActivity.this, ForgotPassActivity.class);
-                startActivity(i);
-                finish();
+            Intent i = new Intent(LoginActivity.this, ForgotPassActivity.class);
+            startActivity(i);
+            finish();
             }
         });
     }
