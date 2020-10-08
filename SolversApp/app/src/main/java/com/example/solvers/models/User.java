@@ -1,4 +1,4 @@
-package com.example.solvers_login.models;
+package com.example.solvers.models;
 
 import java.io.Serializable;
 import java.util.HashMap;

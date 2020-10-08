@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.solvers_login">
+    package="com.example.solvers">
 
     <application
         android:allowBackup="true"
@@ -9,11 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CreatePostActivity"></activity>
-        <activity android:name=".ForgotPassActivity" />
-        <activity android:name=".HomeActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name="com.example.solvers.views.PostInfoActivity" />
+        <activity android:name="com.example.solvers.views.CreatePostActivity" />
+        <activity android:name="com.example.solvers.views.ForgotPassActivity" />
+        <activity android:name="com.example.solvers.views.HomeActivity" />
+        <activity android:name="com.example.solvers.views.LoginActivity" />
+        <activity android:name="com.example.solvers.views.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

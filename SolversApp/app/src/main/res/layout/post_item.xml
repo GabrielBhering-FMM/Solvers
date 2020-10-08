@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:layout_gravity="center"
+        card_view:cardCornerRadius="20dp"
+        android:elevation="200dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="10dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/card_view_constraint_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true">
+
+            <TextView
+                android:id="@+id/tv_description"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="7dp"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:padding="1dp"
+                android:scrollHorizontally="true"
+                android:text="aa"
+                card_view:layout_constraintBottom_toTopOf="@+id/guideline26"
+                card_view:layout_constraintEnd_toStartOf="@+id/guideline24"
+                card_view:layout_constraintStart_toStartOf="@+id/guideline23"
+                card_view:layout_constraintTop_toBottomOf="@+id/tv_profile"
+                card_view:layout_constraintVertical_bias="0.0"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                card_view:layout_constraintGuide_percent="0.041666668" />
+
+            <ImageView
+                android:id="@+id/tv_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                card_view:layout_constraintStart_toStartOf="@+id/guideline23"
+                card_view:layout_constraintTop_toTopOf="@+id/guideline19"
+                card_view:srcCompat="@drawable/ic_baseline_account_circle_24" />
+
+            <TextView
+                android:id="@+id/tv_name_plus_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Pedro Araujo • 0 min ago"
+                android:textStyle="bold"
+                card_view:layout_constraintBottom_toBottomOf="@+id/tv_profile"
+                card_view:layout_constraintEnd_toStartOf="@+id/guideline24"
+                card_view:layout_constraintHorizontal_bias="0.0"
+                card_view:layout_constraintStart_toEndOf="@+id/tv_profile"
+                card_view:layout_constraintTop_toTopOf="@+id/tv_profile" />
+
+            <Button
+                android:id="@+id/bt_answer"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginVertical="2dp"
+                android:background="@drawable/outlined_button"
+                android:text="Answer"
+                android:textColor="@color/colorAccent"
+                android:textSize="10sp"
+                card_view:layout_constraintBottom_toTopOf="@+id/guideline25"
+                card_view:layout_constraintEnd_toStartOf="@+id/guideline24"
+                card_view:layout_constraintHorizontal_bias="1.0"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="@+id/guideline26" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline23"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                card_view:layout_constraintGuide_begin="15dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                card_view:layout_constraintGuide_end="15dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline25"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                card_view:layout_constraintGuide_end="10dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                card_view:layout_constraintGuide_end="35dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

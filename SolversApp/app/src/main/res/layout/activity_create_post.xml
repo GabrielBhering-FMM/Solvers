@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreatePostActivity">
+    tools:context=".views.CreatePostActivity">
 
     <EditText
         android:id="@+id/txtDescription"
@@ -16,9 +16,9 @@
         android:gravity="start|top"
         android:inputType="textMultiLine"
         android:paddingStart="20sp"
-        android:paddingEnd="20sp"
         android:paddingTop="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/toolbar3"
+        android:paddingEnd="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/create_post_toolbar" />
@@ -27,50 +27,15 @@
         android:id="@+id/create_post_toolbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
+        android:background="#fff"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
+        android:elevation="2dp"
+        app:title="Ask a question"
+        app:titleTextColor="@color/textPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar3"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/btSubmit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:background="@color/colorAccent"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:text="Ask question"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar3"
-        app:layout_constraintEnd_toEndOf="@+id/toolbar3"
-        app:layout_constraintTop_toTopOf="@+id/toolbar3" />
-
-    <EditText
-        android:id="@+id/txtSubject"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:ems="10"
-        android:hint="Subject"
-        android:inputType="text"
-        android:textColor="#ffffff"
-        android:textColorHint="#ffffff"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar3"
-        app:layout_constraintStart_toStartOf="@+id/toolbar3"
-        app:layout_constraintTop_toTopOf="@+id/toolbar3" />
 
     <ProgressBar
         android:id="@+id/loading_post_submit"
@@ -83,4 +48,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:elevation="100dp"
+        app:layout_constraintBottom_toBottomOf="@+id/txtDescription"
+        app:layout_constraintEnd_toEndOf="@+id/txtDescription"
+        app:maxImageSize="32dp"
+        app:srcCompat="@drawable/ic_baseline_send_24" />
 </androidx.constraintlayout.widget.ConstraintLayout>

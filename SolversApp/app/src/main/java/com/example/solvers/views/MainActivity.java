@@ -1,4 +1,4 @@
-package com.example.solvers_login;
+package com.example.solvers.views;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.solvers.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
+
         emailId = findViewById(R.id.txt_email);
         password = findViewById(R.id.txt_senha);
         btnSignUp = findViewById(R.id.btn_cad);
@@ -42,9 +44,7 @@ public class MainActivity extends AppCompatActivity {
         pd = findViewById(R.id.progressBar2);
         pd.setIndeterminate(true);
 
-        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+        mAuthStateListener = firebaseAuth -> {
             FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
             if(mFirebaseUser != null){
                 Intent i = new Intent(getApplicationContext(), HomeActivity.class);
@@ -52,12 +52,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
                 finish();
             }
-            }
         };
 
-        btnSignUp.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
+        setEvents();
+    }
+
+    public void setEvents(){
+        btnSignUp.setOnClickListener(v -> {
             String email = emailId.getText().toString();
             String pwd = password.getText().toString();
 
@@ -76,29 +77,25 @@ public class MainActivity extends AppCompatActivity {
                 mFirebaseAuth.createUserWithEmailAndPassword(email, pwd).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                    if(!task.isSuccessful()){
-                        Toast.makeText(MainActivity.this,"Campos incorretos, tente novamente", Toast.LENGTH_SHORT).show();
-                        pd.setVisibility(View.INVISIBLE);
-                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                    }
-                    else{
-                        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-                        finish();
-                    }
+                        if(!task.isSuccessful()){
+                            Toast.makeText(MainActivity.this,"Campos incorretos, tente novamente", Toast.LENGTH_SHORT).show();
+                            pd.setVisibility(View.INVISIBLE);
+                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                        }
+                        else{
+                            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                            finish();
+                        }
                     }
                 });
             }
-            }
         });
 
-        tvSignIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(i);
-            }
+        tvSignIn.setOnClickListener(v -> {
+            Intent i = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(i);
         });
     }
 

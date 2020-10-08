@@ -8,6 +8,35 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:431032867003:android:383f39b570dbd8891e719e",
+        "android_client_info": {
+          "package_name": "com.example.solvers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "431032867003-0lld745v8v710siqqhtvenktpg4f9140.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlNxQ7hEeaLEMQTQav8Srm2Sgk0tahaXQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "431032867003-0lld745v8v710siqqhtvenktpg4f9140.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:431032867003:android:87613fd9f4d56d6e1e719e",
         "android_client_info": {
           "package_name": "com.example.solvers_login"

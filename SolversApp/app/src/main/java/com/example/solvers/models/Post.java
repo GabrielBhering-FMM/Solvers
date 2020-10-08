@@ -1,7 +1,6 @@
-package com.example.solvers_login.models;
+package com.example.solvers.models;
 
 import com.google.firebase.Timestamp;
-import com.google.firebase.firestore.DocumentReference;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -10,16 +9,15 @@ public class Post implements Serializable {
     private String id;
     private String subject;
     private String description;
-    private DocumentReference author;
+    private String author;
     private boolean isAnswered;
     private Timestamp createdAt;
-//    TODO: createdAt field (timestamp)
 
     public Post(HashMap<String,Object> hash){
         this.id = hash.get("id").toString();
         this.subject = hash.get("subject").toString();
         this.description = hash.get("description").toString();
-        this.author = (DocumentReference) hash.get("author");
+        this.author = hash.get("author").toString();
         this.isAnswered = Boolean.getBoolean(hash.get("isAnswered").toString());
         this.createdAt = (Timestamp) hash.get("createdAt");
     }
@@ -48,11 +46,11 @@ public class Post implements Serializable {
         this.description = description;
     }
 
-    public DocumentReference getAuthor() {
+    public String getAuthor() {
         return author;
     }
 
-    public void setAuthor(DocumentReference author) {
+    public void setAuthor(String author) {
         this.author = author;
     }
 
@@ -62,5 +60,13 @@ public class Post implements Serializable {
 
     public void setAnswered(boolean answered) {
         isAnswered = answered;
+    }
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
     }
 }

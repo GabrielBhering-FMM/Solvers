@@ -1,2 +1,2 @@
-rootProject.name='solvers-login'
+rootProject.name='solvers'
 include ':app'
