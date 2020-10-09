@@ -1,5 +1,6 @@
 package com.example.solvers.views;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -19,6 +21,7 @@ import com.example.solvers.models.Answer;
 import com.example.solvers.models.Post;
 import com.example.solvers.models.User;
 import com.example.solvers.views.fragments.HomeFragment;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,12 +42,16 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import agency.tango.android.avatarview.IImageLoader;
 import agency.tango.android.avatarview.loader.PicassoLoader;
 import agency.tango.android.avatarview.views.AvatarView;
 import io.noties.markwon.Markwon;
+import io.noties.markwon.editor.MarkwonEditor;
+import io.noties.markwon.editor.MarkwonEditorTextWatcher;
 
 public class PostInfoActivity extends AppCompatActivity {
 
@@ -72,7 +79,9 @@ public class PostInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_post_info);
 
         final Markwon markwon = Markwon.create(this);
+        final MarkwonEditor editor = MarkwonEditor.create(markwon);
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         db = FirebaseFirestore.getInstance();
 
         Intent intent = getIntent();
@@ -92,12 +101,17 @@ public class PostInfoActivity extends AppCompatActivity {
         imgUser = findViewById(R.id.user_avatar);
         fabSend = findViewById(R.id.bt_answer_send);
 
-        DocumentReference postRef = getPost(postId);
+        txtUserAnswer.addTextChangedListener(MarkwonEditorTextWatcher.withPreRender(
+                editor,
+                Executors.newCachedThreadPool(),
+                txtUserAnswer));
+
+        DocumentReference postRef = getPostRef(postId);
+
         postRef.get().addOnCompleteListener(task -> {
             if(task.isSuccessful()){
                 DocumentSnapshot doc = task.getResult();
                 if(doc.exists()){
-                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
                     HashMap<String, Object> postHash = (HashMap<String, Object>) doc.getData();
                     postHash.put("id",doc.getId());
@@ -126,7 +140,8 @@ public class PostInfoActivity extends AppCompatActivity {
                         else toolbar.setSubtitle(diffMinutes+" minute ago");
                     }
 
-                    getUser(post.getAuthor());
+                    DocumentReference authorRef = getAuthorRef(post.getAuthor());
+                    getAuthor(authorRef);
 
                     getAnswers(postRef).addSnapshotListener((value, e) -> {
                         if (e != null) {
@@ -152,8 +167,32 @@ public class PostInfoActivity extends AppCompatActivity {
                         }
                         Log.d("answer", "Answer List: "+answerList.toString());
                         buildRecyclerView();
+
+
                     });
                 }
+            }
+        });
+
+        fabSend.setOnClickListener(view -> {
+            String txtAnswer = txtUserAnswer.getText().toString();
+            if(!txtAnswer.equals("")){
+                Date nowDate = new Date();
+
+                Map<String,Object> answerHash = new HashMap<>();
+                answerHash.put("author",getAuthorRef(user.getUid()));
+                answerHash.put("post",postRef);
+                answerHash.put("text",txtAnswer);
+                answerHash.put("createdAt",nowDate);
+
+                db.collection("answers").add(answerHash).addOnCompleteListener(task3 -> {
+                    if (task3.isSuccessful()){
+                        Log.d("answer", "Successful answered");
+                        txtUserAnswer.setText("");
+                    }
+                });
+
+                Log.d("answer",answerHash.toString());
             }
         });
     }
@@ -167,8 +206,12 @@ public class PostInfoActivity extends AppCompatActivity {
         recyclerView.setAdapter(answersAdapter);
     }
 
-    public DocumentReference getPost(String id){
+    public DocumentReference getPostRef(String id){
         return db.collection("posts").document(id);
+    }
+
+    public DocumentReference getAuthorRef(String uid) {
+        return db.collection("users").document(uid);
     }
 
     public Query getAnswers(DocumentReference postRef){
@@ -177,8 +220,8 @@ public class PostInfoActivity extends AppCompatActivity {
                 .orderBy("createdAt", Query.Direction.ASCENDING);
     }
 
-    public void getUser(String uid){
-        db.collection("users").document(uid).get().addOnCompleteListener(task1 -> {
+    public void getAuthor(DocumentReference authorRef){
+        authorRef.get().addOnCompleteListener(task1 -> {
             if (task1.isSuccessful()){
                 DocumentSnapshot doc1 = task1.getResult();
 

@@ -81,12 +81,13 @@ public class AnswersRecyclerViewAdapter extends RecyclerView.Adapter<AnswersRecy
         final Markwon markwon = Markwon.create(context);
 
         Answer answer = answerList.get(position);
-        Log.d("answer",answerList.get(position).getCreatedAt().toDate().toString());
+        Log.d("answer", String.valueOf(position));
 
         answer.getAuthorRef().get().addOnCompleteListener(task -> {
             if(task.isSuccessful()){
                 DocumentSnapshot doc = task.getResult();
                 Map<String,Object> author = doc.getData();
+                Log.d("answer_author",author.get("displayName").toString());
 
                 if(author.get("imageUrl")!=null&&!author.get("imageUrl").equals("")){
                     IImageLoader imgLoader = new PicassoLoader();

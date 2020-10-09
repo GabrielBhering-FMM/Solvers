@@ -16,12 +16,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.solvers.R;
 import com.example.solvers.models.Post;
+import com.example.solvers.models.User;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import agency.tango.android.avatarview.IImageLoader;
+import agency.tango.android.avatarview.loader.PicassoLoader;
+import agency.tango.android.avatarview.views.AvatarView;
 import io.noties.markwon.Markwon;
 
 public class PostRecyclerViewAdapter extends RecyclerView.Adapter<PostRecyclerViewAdapter.ViewHolder>{
@@ -44,7 +52,7 @@ public class PostRecyclerViewAdapter extends RecyclerView.Adapter<PostRecyclerVi
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
         private TextView txtName,txtDesc;
-        private ImageView imgProfile;
+        private AvatarView imgProfile;
         private Button btAnswer;
 
         private CardView cardView;
@@ -58,6 +66,7 @@ public class PostRecyclerViewAdapter extends RecyclerView.Adapter<PostRecyclerVi
             txtDesc = itemView.findViewById(R.id.tv_description);
             imgProfile = itemView.findViewById(R.id.tv_profile);
             btAnswer = itemView.findViewById(R.id.bt_answer);
+            imgProfile = itemView.findViewById(R.id.tv_profile);
 
             cardView = itemView.findViewById(R.id.card_view);
             constraintLayout = itemView.findViewById(R.id.card_view_constraint_layout);
@@ -109,6 +118,8 @@ public class PostRecyclerViewAdapter extends RecyclerView.Adapter<PostRecyclerVi
 
         Post post = postList.get(position);
 
+        getAuthor(post.getAuthor(),holder.imgProfile);
+
         //Get the difference between now and post date
         Date now = new Date();
         long diff = now.getTime() - post.getCreatedAt().toDate().getTime();
@@ -126,6 +137,27 @@ public class PostRecyclerViewAdapter extends RecyclerView.Adapter<PostRecyclerVi
 
         //Set the Markdown interpreter in TextView
         markwon.setMarkdown(holder.txtDesc, post.getDescription());
+    }
+
+    public void getAuthor(String uid, AvatarView avatarView){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection("users").document(uid).get().addOnCompleteListener(task1 -> {
+            if (task1.isSuccessful()){
+                DocumentSnapshot doc1 = task1.getResult();
+
+                if(doc1.exists()){
+                    HashMap<String,Object> authorHash = (HashMap<String, Object>) doc1.getData();
+                    Log.d("author",authorHash.toString());
+                    User author = new User(authorHash);
+
+                    if(author.getImageUrl()!=null && !author.getImageUrl().equals("")){
+                        IImageLoader imgLoader = new PicassoLoader();
+                        imgLoader.loadImage(avatarView,author.getImageUrl(),author.getName());
+                    }
+                }
+            }
+        });
     }
 
     @Override

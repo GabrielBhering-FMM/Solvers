@@ -48,14 +48,13 @@
                 android:orientation="horizontal"
                 card_view:layout_constraintGuide_percent="0.041666668" />
 
-            <ImageView
+            <agency.tango.android.avatarview.views.AvatarView
                 android:id="@+id/tv_profile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_baseline_account_circle_24"
                 card_view:layout_constraintStart_toStartOf="@+id/guideline23"
-                card_view:layout_constraintTop_toTopOf="@+id/guideline19"
-                card_view:srcCompat="@drawable/ic_baseline_account_circle_24" />
+                card_view:layout_constraintTop_toTopOf="@+id/guideline19"/>
 
             <TextView
                 android:id="@+id/tv_name_plus_date"

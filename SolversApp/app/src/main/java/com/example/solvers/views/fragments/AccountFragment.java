@@ -9,15 +9,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.solvers.R;
 import com.example.solvers.views.MainActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
+import agency.tango.android.avatarview.IImageLoader;
+import agency.tango.android.avatarview.loader.PicassoLoader;
+import agency.tango.android.avatarview.views.AvatarView;
+
 public class AccountFragment extends Fragment {
 
     View view;
 
+    AvatarView profileImg;
+    TextView profileName;
     Button logout;
 
     FirebaseAuth mFirebaseAuth;
@@ -34,9 +41,13 @@ public class AccountFragment extends Fragment {
 
         mFirebaseAuth = FirebaseAuth.getInstance();
 
-
-        //        TODO: Create logout button
+        profileImg = view.findViewById(R.id.account_photo);
+        profileName = view.findViewById(R.id.account_name);
         logout = view.findViewById(R.id.logout);
+
+        profileName.setText(mFirebaseAuth.getCurrentUser().getDisplayName().isEmpty()?"User":mFirebaseAuth.getCurrentUser().getDisplayName());
+        IImageLoader imgLoader = new PicassoLoader();
+        imgLoader.loadImage(profileImg, String.valueOf(mFirebaseAuth.getCurrentUser().getPhotoUrl()),mFirebaseAuth.getCurrentUser().getDisplayName().isEmpty()?"User":mFirebaseAuth.getCurrentUser().getDisplayName());
 
         logout.setOnClickListener(v -> {
             mFirebaseAuth.signOut();
