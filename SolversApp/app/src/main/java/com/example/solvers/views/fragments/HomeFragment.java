@@ -75,7 +75,7 @@ public class HomeFragment extends Fragment {
                 .orderBy("createdAt", Query.Direction.ASCENDING)
                 .addSnapshotListener((value, e) -> {
                     if (e != null) {
-                        Log.w("error", "listen:error", e);
+                        Log.e("error", "listen:error", e);
                         return;
                     }
 
