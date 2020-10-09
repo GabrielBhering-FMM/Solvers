@@ -18,12 +18,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class ForgotPassActivity extends AppCompatActivity {
-
     EditText edtEmail;
     Button btnResetPassword;
     TextView btnBack;
     FirebaseAuth mAuth;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +33,10 @@ public class ForgotPassActivity extends AppCompatActivity {
         btnBack = findViewById(R.id.view_voltar_pw);
         mAuth = FirebaseAuth.getInstance();
 
+       setActions();
+    }
+
+    public void setActions(){
         btnResetPassword.setOnClickListener(v -> {
             String email = edtEmail.getText().toString().trim();
 
@@ -43,15 +45,7 @@ public class ForgotPassActivity extends AppCompatActivity {
                 return;
             }
 
-            mAuth.sendPasswordResetEmail(email)
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(ForgotPassActivity.this, "Verifique seu e-mail para redefinir sua senha", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(ForgotPassActivity.this, "Falha ao enviar o e-mail", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
+            sendPswdResetEmail(email);
         });
 
         btnBack.setOnClickListener(v -> {
@@ -59,6 +53,16 @@ public class ForgotPassActivity extends AppCompatActivity {
             startActivity(i);
             finish();
         });
+    }
 
+    public void sendPswdResetEmail(String email){
+        mAuth.sendPasswordResetEmail(email)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(ForgotPassActivity.this, "Verifique seu e-mail para redefinir sua senha", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(ForgotPassActivity.this, "Falha ao enviar o e-mail", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 }

@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseAuth mFirebaseAuth;
 
     ProgressBar pd;
+
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private FirebaseFirestore db;
 
@@ -82,58 +83,62 @@ public class MainActivity extends AppCompatActivity {
 
                 pd.setVisibility(View.INVISIBLE);
                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-            }
-            else if(pwd.isEmpty()){
+
+            }else if(pwd.isEmpty()){
                 password.setError("Senha não informada");
 
                 pd.setVisibility(View.INVISIBLE);
                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-            }
-            else{
-                mFirebaseAuth.createUserWithEmailAndPassword(email, pwd).addOnCompleteListener(MainActivity.this, task -> {
-                    try {
-                        if(!task.isSuccessful()){
-                            Toast.makeText(MainActivity.this,"Campos incorretos, tente novamente", Toast.LENGTH_SHORT).show();
-                            pd.setVisibility(View.INVISIBLE);
-                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                        }
-                        else{
-                            FirebaseUser user = task.getResult().getUser();
 
-                            Map<String,Object> userHash = new HashMap<>();
-                            userHash.put("uid",user.getUid());
-                            userHash.put("displayName",user.getDisplayName()!=null?user.getDisplayName():"user");
-                            userHash.put("email",user.getEmail());
-                            userHash.put("imageUrl", user.getPhotoUrl()!=null?user.getPhotoUrl().toString():"");
-
-                            Log.d("cadastro",userHash.toString());
-
-                            db.collection("users").document(user.getUid()).set(userHash).addOnCompleteListener(task1 -> {
-                                if (task1.isSuccessful()){
-                                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    startActivity(intent);
-                                    finish();
-                                }else{
-                                    user.delete();
-                                    Toast.makeText(MainActivity.this,"Ocorreu um erro no cadastro", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                        }
-                    }catch (Exception e){
-                        Log.e("cadastro",e.toString());
-                        e.printStackTrace();
-
-                        mFirebaseAuth.getCurrentUser().delete();
-                        mFirebaseAuth.signOut();
-                    }
-                });
-            }
+            }else createUser(email, pwd);
         });
 
         tvSignIn.setOnClickListener(v -> {
             Intent i = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(i);
+        });
+    }
+
+    public void createUser(String email, String password){
+        mFirebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(MainActivity.this, task -> {
+            try {
+                if(!task.isSuccessful()){
+                    Toast.makeText(MainActivity.this,"Campos incorretos, tente novamente", Toast.LENGTH_SHORT).show();
+                    pd.setVisibility(View.INVISIBLE);
+                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                }
+                else{
+                    FirebaseUser user = task.getResult().getUser();
+
+                    Map<String,Object> userHash = new HashMap<>();
+                    userHash.put("uid",user.getUid());
+                    userHash.put("displayName",user.getDisplayName()!=null?user.getDisplayName():"user");
+                    userHash.put("email",user.getEmail());
+                    userHash.put("imageUrl", user.getPhotoUrl()!=null?user.getPhotoUrl().toString():"");
+
+                    addUserToFirestore(user, userHash);
+                }
+            }catch (Exception e){
+                Log.e("cadastro",e.toString());
+                e.printStackTrace();
+
+                mFirebaseAuth.getCurrentUser().delete();
+                mFirebaseAuth.signOut();
+            }
+        });
+    }
+
+    public void addUserToFirestore(FirebaseUser user, Map<String,Object> userHash){
+        db.collection("users").document(user.getUid()).set(userHash).addOnCompleteListener(task1 -> {
+            if (task1.isSuccessful()){
+                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                finish();
+            }else{
+                user.delete();
+                Toast.makeText(MainActivity.this,"Ocorreu um erro no cadastro", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 

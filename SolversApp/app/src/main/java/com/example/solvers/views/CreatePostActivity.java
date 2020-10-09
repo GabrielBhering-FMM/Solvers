@@ -1,9 +1,12 @@
 package com.example.solvers.views;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.example.solvers.R;
+import com.example.solvers.utils.MarkwonBuilder;
 import com.example.solvers.views.dialogs.SubjectDialog;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -28,6 +32,10 @@ import java.util.concurrent.Executors;
 import io.noties.markwon.Markwon;
 import io.noties.markwon.editor.MarkwonEditor;
 import io.noties.markwon.editor.MarkwonEditorTextWatcher;
+import io.noties.markwon.ext.latex.JLatexMathPlugin;
+import io.noties.markwon.ext.strikethrough.StrikethroughPlugin;
+import io.noties.markwon.html.HtmlPlugin;
+import io.noties.markwon.inlineparser.MarkwonInlineParserPlugin;
 
 public class CreatePostActivity extends AppCompatActivity {
 
@@ -46,10 +54,6 @@ public class CreatePostActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_post);
-
-        //Init Markdown interpreter and editor
-        final Markwon markwon = Markwon.create(this);
-        final MarkwonEditor editor = MarkwonEditor.create(markwon);
 
         //Init Firebase instances
         db = FirebaseFirestore.getInstance();
@@ -70,13 +74,16 @@ public class CreatePostActivity extends AppCompatActivity {
         mActionBar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
         mActionBar.setNavigationOnClickListener(view -> CreatePostActivity.this.finish());
 
-        btSubmit = findViewById(R.id.btSubmit);
-        loading = findViewById(R.id.loading_post_submit);
-
+        //Init Markdown interpreter and editor
+        final Markwon markwon = MarkwonBuilder.build(this,txtDescription.getTextSize());
+        final MarkwonEditor editor = MarkwonEditor.create(markwon);
         txtDescription.addTextChangedListener(MarkwonEditorTextWatcher.withPreRender(
                 editor,
                 Executors.newCachedThreadPool(),
                 txtDescription));
+
+        btSubmit = findViewById(R.id.btSubmit);
+        loading = findViewById(R.id.loading_post_submit);
 
         getActions();
     }

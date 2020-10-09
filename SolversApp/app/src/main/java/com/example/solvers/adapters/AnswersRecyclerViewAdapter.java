@@ -18,6 +18,7 @@ import com.example.solvers.R;
 import com.example.solvers.models.Answer;
 import com.example.solvers.models.Post;
 import com.example.solvers.models.User;
+import com.example.solvers.utils.MarkwonBuilder;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -27,12 +28,17 @@ import org.w3c.dom.Document;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import agency.tango.android.avatarview.IImageLoader;
 import agency.tango.android.avatarview.loader.PicassoLoader;
 import agency.tango.android.avatarview.views.AvatarView;
 import io.noties.markwon.Markwon;
+import io.noties.markwon.ext.latex.JLatexMathPlugin;
+import io.noties.markwon.ext.strikethrough.StrikethroughPlugin;
+import io.noties.markwon.html.HtmlPlugin;
+import io.noties.markwon.inlineparser.MarkwonInlineParserPlugin;
 
 public class AnswersRecyclerViewAdapter extends RecyclerView.Adapter<AnswersRecyclerViewAdapter.ViewHolder> {
     public List<Answer> answerList;
@@ -78,8 +84,6 @@ public class AnswersRecyclerViewAdapter extends RecyclerView.Adapter<AnswersRecy
 
     @Override
     public void onBindViewHolder(@NonNull AnswersRecyclerViewAdapter.ViewHolder holder, int position) {
-        final Markwon markwon = Markwon.create(context);
-
         Answer answer = answerList.get(position);
         Log.d("answer", String.valueOf(position));
 
@@ -114,6 +118,7 @@ public class AnswersRecyclerViewAdapter extends RecyclerView.Adapter<AnswersRecy
 
                     String text = "**"+doc.getData().get("displayName").toString()+"** "+answer.getText();
 
+                    final Markwon markwon = MarkwonBuilder.build(context, holder.answerText.getTextSize());
                     markwon.setMarkdown(holder.answerText, text);
                 }
             }

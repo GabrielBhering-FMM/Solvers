@@ -37,13 +37,6 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
         openFragment(homeFragment);
     }
 
-    private void openFragment(Fragment fragment) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_layout, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
@@ -61,7 +54,13 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
             default:
                 break;
         }
-
         return true;
+    }
+
+    private void openFragment(Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame_layout, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }

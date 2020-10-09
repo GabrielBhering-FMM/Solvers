@@ -34,21 +34,27 @@ public class AccountFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_account, container, false);
 
+        //Get Firebase instance
         mFirebaseAuth = FirebaseAuth.getInstance();
 
+        //Get widgets
         profileImg = view.findViewById(R.id.account_photo);
         profileName = view.findViewById(R.id.account_name);
         logout = view.findViewById(R.id.logout);
 
-        profileName.setText(mFirebaseAuth.getCurrentUser().getDisplayName().isEmpty()?"User":mFirebaseAuth.getCurrentUser().getDisplayName());
-        IImageLoader imgLoader = new PicassoLoader();
-        imgLoader.loadImage(profileImg, String.valueOf(mFirebaseAuth.getCurrentUser().getPhotoUrl()),mFirebaseAuth.getCurrentUser().getDisplayName().isEmpty()?"User":mFirebaseAuth.getCurrentUser().getDisplayName());
+        setNameAndPhoto();
 
+        setActions();
+
+        return view;
+    }
+
+    public void setActions(){
         logout.setOnClickListener(v -> {
             mFirebaseAuth.signOut();
 
@@ -56,7 +62,17 @@ public class AccountFragment extends Fragment {
             HomeToMain.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(HomeToMain);
         });
+    }
 
-        return view;
+    public void setNameAndPhoto(){
+        IImageLoader imgLoader = new PicassoLoader();
+
+        if(mFirebaseAuth.getCurrentUser().getDisplayName()!=null){
+            profileName.setText(mFirebaseAuth.getCurrentUser().getDisplayName().isEmpty()?"User":mFirebaseAuth.getCurrentUser().getDisplayName());
+            imgLoader.loadImage(profileImg, String.valueOf(mFirebaseAuth.getCurrentUser().getPhotoUrl()),mFirebaseAuth.getCurrentUser().getDisplayName().isEmpty()?"User":mFirebaseAuth.getCurrentUser().getDisplayName());
+        }else{
+            profileName.setText("User");
+            imgLoader.loadImage(profileImg, String.valueOf(mFirebaseAuth.getCurrentUser().getPhotoUrl()),"User");
+        }
     }
 }

@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.solvers.R;
 import com.example.solvers.models.Post;
 import com.example.solvers.models.User;
+import com.example.solvers.utils.MarkwonBuilder;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -25,12 +26,17 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import agency.tango.android.avatarview.IImageLoader;
 import agency.tango.android.avatarview.loader.PicassoLoader;
 import agency.tango.android.avatarview.views.AvatarView;
 import io.noties.markwon.Markwon;
+import io.noties.markwon.ext.latex.JLatexMathPlugin;
+import io.noties.markwon.ext.strikethrough.StrikethroughPlugin;
+import io.noties.markwon.html.HtmlPlugin;
+import io.noties.markwon.inlineparser.MarkwonInlineParserPlugin;
 
 public class PostRecyclerViewAdapter extends RecyclerView.Adapter<PostRecyclerViewAdapter.ViewHolder>{
     public List<Post> postList;
@@ -114,8 +120,6 @@ public class PostRecyclerViewAdapter extends RecyclerView.Adapter<PostRecyclerVi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final Markwon markwon = Markwon.create(context);
-
         Post post = postList.get(position);
 
         getAuthor(post.getAuthor(),holder.imgProfile);
@@ -136,6 +140,7 @@ public class PostRecyclerViewAdapter extends RecyclerView.Adapter<PostRecyclerVi
         }
 
         //Set the Markdown interpreter in TextView
+        final Markwon markwon = MarkwonBuilder.build(context, holder.txtDesc.getTextSize());
         markwon.setMarkdown(holder.txtDesc, post.getDescription());
     }
 

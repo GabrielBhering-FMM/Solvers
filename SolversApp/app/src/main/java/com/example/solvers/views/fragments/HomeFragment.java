@@ -34,6 +34,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 import agency.tango.android.avatarview.IImageLoader;
@@ -58,7 +59,6 @@ public class HomeFragment extends Fragment {
     String filter = "";
 
     private FirebaseFirestore db;
-
     private FirebaseUser user;
 
     private LinkedList<Post> postList = new LinkedList<>();
@@ -74,6 +74,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        //Create toolbar in fragment
         toolbar = view.findViewById(R.id.toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
 
@@ -93,6 +94,7 @@ public class HomeFragment extends Fragment {
                         return;
                     }
 
+                    //Check type of change in posts
                     for (DocumentChange dc : value.getDocumentChanges()) {
                         switch (dc.getType()) {
                             case ADDED:
@@ -109,15 +111,15 @@ public class HomeFragment extends Fragment {
                                 break;
                         }
                     }
-                    Log.d("post", "Post List: "+postList.toString());
+
+                    //To not update the list with filter if a post change
                     if(filter.isEmpty()){
                         buildRecyclerView();
                     }
                 });
 
-        //TODO: Create SearchView listener
-        profileImg = view.findViewById(R.id.toolbar_avatar);
 
+        profileImg = view.findViewById(R.id.toolbar_avatar);
         buildProfileImg();
 
         btCreatPost = view.findViewById(R.id.floatingActionButton);
@@ -133,6 +135,7 @@ public class HomeFragment extends Fragment {
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.home_toolbar, menu);
 
+        //Search view methods
         MenuItem searchItem = menu.findItem(R.id.search);
         searchView = (android.widget.SearchView) searchItem.getActionView();
 
@@ -140,15 +143,12 @@ public class HomeFragment extends Fragment {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 filterPosts(filter);
-
                 searchItem.collapseActionView();
-
                 return true;
             }
             @Override
             public boolean onQueryTextChange(String s) {
                 filter = s;
-
                 return true;
             }
         });
@@ -248,17 +248,16 @@ public class HomeFragment extends Fragment {
             Post post = new Post(postHash);
 
             int index = 0;
-            for(Post post_data : postList){
-                if(post_data.getId().equals(post.getId())){
-                    postList.remove(index);
-                    Log.d("remove_post",postList.toString());
-                }
+            int removeIndex = -1;
+            Iterator<Post> iterator = postList.iterator();
+            while (iterator.hasNext()){
+                if(iterator.next().getId().equals(post.getId())) removeIndex = index;
                 index++;
             }
+            if (removeIndex > -1) postList.remove(removeIndex);
         }
     }
 
-    //TODO: Implement filter in toolbar
     private void filterPosts(String filter){
         LinkedList<Post> aux = new LinkedList<>();
 

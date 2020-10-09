@@ -49,6 +49,7 @@
             android:id="@+id/answer_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:minHeight="30dp"
             android:layout_marginStart="8dp"
             android:text="TextView"
             android:textColor="@color/textPrimary"

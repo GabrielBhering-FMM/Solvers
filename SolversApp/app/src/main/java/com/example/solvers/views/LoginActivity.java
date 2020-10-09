@@ -73,27 +73,8 @@ public class LoginActivity extends AppCompatActivity {
                 emailId.setError("E-mail não informado");
                 emailId.requestFocus();
             }
-            else if(pwd.isEmpty()){
-                password.setError("Senha não informada");
-            }
-            else {
-                mFirebaseAuth.signInWithEmailAndPassword(email,pwd).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(!task.isSuccessful()){
-                            Toast.makeText(LoginActivity.this,"Erro de autenticação", Toast.LENGTH_SHORT).show();
-                            pd.setVisibility(View.INVISIBLE);
-                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                        }
-                        else{
-                            Intent intToHome = new Intent(getApplicationContext(), HomeActivity.class);
-                            intToHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intToHome);
-                            LoginActivity.this.finish();
-                        }
-                    }
-                });
-            }
+            else if(pwd.isEmpty()) password.setError("Senha não informada");
+            else signUser(email,pwd);
         });
 
         tvSignUp.setOnClickListener(v -> finish());
@@ -102,6 +83,25 @@ public class LoginActivity extends AppCompatActivity {
             Intent i = new Intent(LoginActivity.this, ForgotPassActivity.class);
             startActivity(i);
             finish();
+        });
+    }
+
+    public void signUser(String email, String password){
+        mFirebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(!task.isSuccessful()){
+                    Toast.makeText(LoginActivity.this,"Erro de autenticação", Toast.LENGTH_SHORT).show();
+                    pd.setVisibility(View.INVISIBLE);
+                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                }
+                else{
+                    Intent intToHome = new Intent(getApplicationContext(), HomeActivity.class);
+                    intToHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intToHome);
+                    LoginActivity.this.finish();
+                }
+            }
         });
     }
 

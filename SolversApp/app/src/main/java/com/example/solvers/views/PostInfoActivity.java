@@ -20,6 +20,7 @@ import com.example.solvers.adapters.PostRecyclerViewAdapter;
 import com.example.solvers.models.Answer;
 import com.example.solvers.models.Post;
 import com.example.solvers.models.User;
+import com.example.solvers.utils.MarkwonBuilder;
 import com.example.solvers.views.fragments.HomeFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -52,6 +53,10 @@ import agency.tango.android.avatarview.views.AvatarView;
 import io.noties.markwon.Markwon;
 import io.noties.markwon.editor.MarkwonEditor;
 import io.noties.markwon.editor.MarkwonEditorTextWatcher;
+import io.noties.markwon.ext.latex.JLatexMathPlugin;
+import io.noties.markwon.ext.strikethrough.StrikethroughPlugin;
+import io.noties.markwon.html.HtmlPlugin;
+import io.noties.markwon.inlineparser.MarkwonInlineParserPlugin;
 
 public class PostInfoActivity extends AppCompatActivity {
 
@@ -78,18 +83,15 @@ public class PostInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_info);
 
-        final Markwon markwon = Markwon.create(this);
-        final MarkwonEditor editor = MarkwonEditor.create(markwon);
-
+        //Init Firebase instances
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         db = FirebaseFirestore.getInstance();
 
+        //Get post id from HomeFragment
         Intent intent = getIntent();
         String postId = intent.getStringExtra(HomeFragment.TAG);
-        Log.d("post_info",postId);
 
-        Log.d("answer",postId);
-
+        //Set toolbar return button
         toolbar = findViewById(R.id.toolbar_info);
         toolbar.setNavigationOnClickListener(view -> PostInfoActivity.this.finish());
 
@@ -101,13 +103,16 @@ public class PostInfoActivity extends AppCompatActivity {
         imgUser = findViewById(R.id.user_avatar);
         fabSend = findViewById(R.id.bt_answer_send);
 
+        //Init Markdown interpreter and editor
+        final Markwon markwon = MarkwonBuilder.build(this, txtUserAnswer.getTextSize());
+        final MarkwonEditor editor = MarkwonEditor.create(markwon);
         txtUserAnswer.addTextChangedListener(MarkwonEditorTextWatcher.withPreRender(
                 editor,
                 Executors.newCachedThreadPool(),
                 txtUserAnswer));
 
+        //Get posts
         DocumentReference postRef = getPostRef(postId);
-
         postRef.get().addOnCompleteListener(task -> {
             if(task.isSuccessful()){
                 DocumentSnapshot doc = task.getResult();
@@ -122,58 +127,19 @@ public class PostInfoActivity extends AppCompatActivity {
                         imgLoader.loadImage(imgUser, String.valueOf(user.getPhotoUrl()),user.getDisplayName());
                     }
 
-                    toolbar.setTitle(post.getSubject());
                     markwon.setMarkdown(txtDescInfo, post.getDescription());
 
-                    //Get the difference between now and post date
-                    Date now = new Date();
-                    long diff = now.getTime() - post.getCreatedAt().toDate().getTime();
-                    long diffMinutes = TimeUnit.MILLISECONDS.toMinutes(diff);
-
-                    //Stylizing the TextView in CardView
-                    if(diffMinutes > 60) {
-                        long diffHours = TimeUnit.MILLISECONDS.toHours(diff);
-                        if(diffHours>1) toolbar.setSubtitle(TimeUnit.MILLISECONDS.toHours(diff)+" hours ago");
-                        else toolbar.setSubtitle(TimeUnit.MILLISECONDS.toHours(diff)+" hour ago");
-                    }else{
-                        if(diffMinutes!=1) toolbar.setSubtitle(diffMinutes+" minutes ago");
-                        else toolbar.setSubtitle(diffMinutes+" minute ago");
-                    }
+                    buildToolbar();
 
                     DocumentReference authorRef = getAuthorRef(post.getAuthor());
                     getAuthor(authorRef);
 
-                    getAnswers(postRef).addSnapshotListener((value, e) -> {
-                        if (e != null) {
-                            Log.e("error", "listen:error", e);
-                            return;
-                        }
-
-                        for (DocumentChange dc : value.getDocumentChanges()) {
-                            switch (dc.getType()) {
-                                case ADDED:
-                                    Log.d("post", "New post: " + dc.getDocument().getData());
-                                    addAnswer(dc.getDocument());
-                                    break;
-                                case MODIFIED:
-                                    Log.d("post", "Modified post: " + dc.getDocument().getData());
-                                    modifyAnswer(dc.getDocument());
-                                    break;
-                                case REMOVED:
-                                    Log.d("post", "Removed post: " + dc.getDocument().getData());
-                                    deleteAnswer(dc.getDocument());
-                                    break;
-                            }
-                        }
-                        Log.d("answer", "Answer List: "+answerList.toString());
-                        buildRecyclerView();
-
-
-                    });
+                    getAnswers(postRef).addSnapshotListener((value, e) -> answerListener(value,e));
                 }
             }
         });
 
+        //Submit post answer
         fabSend.setOnClickListener(view -> {
             String txtAnswer = txtUserAnswer.getText().toString();
             if(!txtAnswer.equals("")){
@@ -185,12 +151,7 @@ public class PostInfoActivity extends AppCompatActivity {
                 answerHash.put("text",txtAnswer);
                 answerHash.put("createdAt",nowDate);
 
-                db.collection("answers").add(answerHash).addOnCompleteListener(task3 -> {
-                    if (task3.isSuccessful()){
-                        Log.d("answer", "Successful answered");
-                        txtUserAnswer.setText("");
-                    }
-                });
+                answerQuestion(answerHash);
 
                 Log.d("answer",answerHash.toString());
             }
@@ -250,7 +211,7 @@ public class PostInfoActivity extends AppCompatActivity {
 
             Answer answer = new Answer(answerHash);
 
-            answerList.addFirst(answer);
+            answerList.add(answer);
         }
     }
 
@@ -285,6 +246,60 @@ public class PostInfoActivity extends AppCompatActivity {
                 }
                 index++;
             }
+        }
+    }
+
+    public void answerQuestion(Map<String,Object> answerHash){
+        db.collection("answers").add(answerHash).addOnCompleteListener(task3 -> {
+            if (task3.isSuccessful()){
+                Log.d("answer", "Successful answered");
+                txtUserAnswer.setText("");
+            }
+        });
+    }
+
+    public void answerListener(QuerySnapshot value, FirebaseFirestoreException e){
+        if (e != null) {
+            Log.e("error", "listen:error", e);
+            return;
+        }
+
+        for (DocumentChange dc : value.getDocumentChanges()) {
+            switch (dc.getType()) {
+                case ADDED:
+                    Log.d("post", "New post: " + dc.getDocument().getData());
+                    addAnswer(dc.getDocument());
+                    break;
+                case MODIFIED:
+                    Log.d("post", "Modified post: " + dc.getDocument().getData());
+                    modifyAnswer(dc.getDocument());
+                    break;
+                case REMOVED:
+                    Log.d("post", "Removed post: " + dc.getDocument().getData());
+                    deleteAnswer(dc.getDocument());
+                    break;
+            }
+        }
+        Log.d("answer", "Answer List: "+answerList.toString());
+        buildRecyclerView();
+    }
+
+    public void buildToolbar(){
+        toolbar.setTitle(post.getSubject());
+
+        //Get the difference between now and post date
+        Date now = new Date();
+        long diff = now.getTime() - post.getCreatedAt().toDate().getTime();
+        long diffMinutes = TimeUnit.MILLISECONDS.toMinutes(diff);
+
+        //Stylizing the TextView in CardView
+        if(diffMinutes > 60) {
+            long diffHours = TimeUnit.MILLISECONDS.toHours(diff);
+            if(diffHours>1) toolbar.setSubtitle(TimeUnit.MILLISECONDS.toHours(diff)+" hours ago");
+            else toolbar.setSubtitle(TimeUnit.MILLISECONDS.toHours(diff)+" hour ago");
+        }else{
+            if(diffMinutes!=1) toolbar.setSubtitle(diffMinutes+" minutes ago");
+            else toolbar.setSubtitle(diffMinutes+" minute ago");
         }
     }
 }
