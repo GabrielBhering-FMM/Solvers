@@ -9,18 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.example.solvers.views.PostInfoActivity" />
-        <activity android:name="com.example.solvers.views.CreatePostActivity" />
-        <activity android:name="com.example.solvers.views.ForgotPassActivity" />
-        <activity android:name="com.example.solvers.views.HomeActivity" />
-        <activity android:name="com.example.solvers.views.LoginActivity" />
-        <activity android:name="com.example.solvers.views.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
+        <activity android:name=".views.SplashScreen" android:theme="@style/AppCompat.Fullscreen">
+            <intent-filter> <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            </intent-filter> </activity>
+        <activity android:name=".views.PostInfoActivity" />
+        <activity android:name=".views.CreatePostActivity" />
+        <activity android:name=".views.ForgotPassActivity" />
+        <activity android:name=".views.HomeActivity" />
+        <activity android:name=".views.LoginActivity" />
+        <activity android:name=".views.MainActivity"/>
     </application>
 
 </manifest>

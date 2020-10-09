@@ -27,6 +27,8 @@
             android:layout_weight="0"
             app:av_text_size_percentage="35"
             android:layout_gravity="center"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             android:src="@drawable/ic_baseline_account_circle_32"/>
 
         <EditText
