@@ -39,7 +39,7 @@
         android:id="@+id/btn_login"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
+        android:background="@drawable/rounded_button"
         android:text="@string/btn_login"
         app:layout_constraintBottom_toTopOf="@+id/txt_nao_tem_cad"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
@@ -142,14 +142,16 @@
         app:layout_constraintBottom_toTopOf="@+id/btn_login"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/txt_email">
+        app:layout_constraintTop_toBottomOf="@+id/txt_email"
+        app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txt_senha_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="@string/txt_senha"
             android:inputType="textPassword"
-            android:hint="@string/txt_senha" />
+            android:password="true" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <ProgressBar

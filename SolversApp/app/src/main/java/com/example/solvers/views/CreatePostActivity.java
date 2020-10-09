@@ -68,12 +68,7 @@ public class CreatePostActivity extends AppCompatActivity {
         //Set toolbar return button
         mActionBar = findViewById(R.id.create_post_toolbar);
         mActionBar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
-        mActionBar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                CreatePostActivity.this.finish();
-            }
-        });
+        mActionBar.setNavigationOnClickListener(view -> CreatePostActivity.this.finish());
 
         btSubmit = findViewById(R.id.btSubmit);
         loading = findViewById(R.id.loading_post_submit);

@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -38,6 +39,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 public class HomeFragment extends Fragment {
+    public static String TAG = "com.example.solvers.views.fragments.HomeFragment.post_index";
 
     View view;
 
@@ -118,7 +120,12 @@ public class HomeFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
         postAdapter = new PostRecyclerViewAdapter(postList,view.getContext());
-        postAdapter.setOnItemClickListener(position -> startActivity(new Intent(view.getContext(), PostInfoActivity.class)));
+        postAdapter.setOnItemClickListener(position -> {
+                Intent intent = new Intent(view.getContext(), PostInfoActivity.class);
+                intent.putExtra(TAG, postList.get(position).getId());
+                startActivity(intent);
+            }
+        );
 
         recyclerView.setAdapter(postAdapter);
     }

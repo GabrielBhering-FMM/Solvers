@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -16,18 +17,25 @@ import android.widget.Toast;
 import com.example.solvers.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-    EditText emailId, password;
+    TextInputLayout emailId, password;
     Button btnSignUp;
     TextView tvSignIn;
     FirebaseAuth mFirebaseAuth;
 
     ProgressBar pd;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +43,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
 
-        emailId = findViewById(R.id.txt_email);
-        password = findViewById(R.id.txt_senha);
+        emailId = findViewById(R.id.txt_email_cad);
+        password = findViewById(R.id.txt_senha_cad);
+
         btnSignUp = findViewById(R.id.btn_cad);
         tvSignIn = findViewById(R.id.txt_ja_tem_cad);
 
@@ -59,8 +69,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void setEvents(){
         btnSignUp.setOnClickListener(v -> {
-            String email = emailId.getText().toString();
-            String pwd = password.getText().toString();
+            String email = emailId.getEditText().getText().toString();
+            String pwd = password.getEditText().getText().toString();
 
             pd.setVisibility(View.VISIBLE);
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
@@ -69,25 +79,53 @@ public class MainActivity extends AppCompatActivity {
             if(email.isEmpty()){
                 emailId.setError("E-mail não informado");
                 emailId.requestFocus();
+
+                pd.setVisibility(View.INVISIBLE);
+                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             }
             else if(pwd.isEmpty()){
                 password.setError("Senha não informada");
+
+                pd.setVisibility(View.INVISIBLE);
+                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             }
             else{
-                mFirebaseAuth.createUserWithEmailAndPassword(email, pwd).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
+                mFirebaseAuth.createUserWithEmailAndPassword(email, pwd).addOnCompleteListener(MainActivity.this, task -> {
+                    try {
                         if(!task.isSuccessful()){
                             Toast.makeText(MainActivity.this,"Campos incorretos, tente novamente", Toast.LENGTH_SHORT).show();
                             pd.setVisibility(View.INVISIBLE);
                             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                         }
                         else{
-                            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
-                            finish();
+                            FirebaseUser user = task.getResult().getUser();
+
+                            Map<String,Object> userHash = new HashMap<>();
+                            userHash.put("uid",user.getUid());
+                            userHash.put("displayName",user.getDisplayName()!=null?user.getDisplayName():"user");
+                            userHash.put("email",user.getEmail());
+                            userHash.put("imageUrl", user.getPhotoUrl()!=null?user.getPhotoUrl().toString():"");
+
+                            Log.d("cadastro",userHash.toString());
+
+                            db.collection("users").document(user.getUid()).set(userHash).addOnCompleteListener(task1 -> {
+                                if (task1.isSuccessful()){
+                                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                    finish();
+                                }else{
+                                    user.delete();
+                                    Toast.makeText(MainActivity.this,"Ocorreu um erro no cadastro", Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         }
+                    }catch (Exception e){
+                        Log.e("cadastro",e.toString());
+                        e.printStackTrace();
+
+                        mFirebaseAuth.getCurrentUser().delete();
+                        mFirebaseAuth.signOut();
                     }
                 });
             }

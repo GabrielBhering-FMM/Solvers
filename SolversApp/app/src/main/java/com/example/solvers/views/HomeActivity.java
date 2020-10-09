@@ -29,22 +29,6 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
 
         Fragment homeFragment = HomeFragment.newInstance();
         openFragment(homeFragment);
-
-//        TODO: Create logout button
-//        logout = findViewById(R.id.btn_logout);
-//
-//        logout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//            FirebaseAuth.getInstance().signOut();
-//
-//            Intent HomeToMain = new Intent(getApplicationContext(), MainActivity.class);
-//            HomeToMain.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-//
-//            startActivity(HomeToMain);
-//            finish();
-//            }
-//        });
     }
 
     private void openFragment(Fragment fragment) {

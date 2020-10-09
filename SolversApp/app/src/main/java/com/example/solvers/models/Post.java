@@ -5,7 +5,7 @@ import com.google.firebase.Timestamp;
 import java.io.Serializable;
 import java.util.HashMap;
 
-public class Post implements Serializable {
+public class Post implements Serializable{
     private String id;
     private String subject;
     private String description;
