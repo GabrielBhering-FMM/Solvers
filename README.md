@@ -1,12 +1,15 @@
 # Solvers
-SOLVERS é um projeto de curso técnico desenvolvido em Java. Nosso enfoque é na discussão de problemas matemáticos.
 
-SOLVERS, baseado nos problemas do milênio, tem o intuito de criar um ambiente de discussão para qualquer tipo de problema lógico/matemático, tudo de forma simples e intuitiva.
+## Como baixar
+Para instalar o app Solvers, vá em [Tags](https://github.com/GabrielBhering-FMM/Solvers/tags) e selecione a versão mais recente e clique no arquivo com a terminação ```.apk```
 
-Para a instalação:
+Em seguida o aplicativo será baixado no seu dispositivo.
 
-Por que usar o SOLVERS?
+Ex.: ![Imgur](https://i.imgur.com/NBMAA4Z.png)
 
-Recursos principais:
+## License
 
-Exemplos
+See  [LICENSE](https://github.com/GabrielBhering-FMM/Solvers/blob/master/LICENSE).
+
+Copyright © 2020 Solvers. All Rights Reserved.
+
