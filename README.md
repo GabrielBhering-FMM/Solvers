@@ -19,7 +19,8 @@ Em seguida o aplicativo será baixado no seu dispositivo.
 Execute o app no seu dispositivo da seguinte maneira:
 
 1. No Android Studio, selecione seu app no menu suspenso de configurações de execução/depuração, na barra de ferramentas.
-2. Na barra de ferramentas, selecione o dispositivo em que você quer executar o app no menu suspenso do dispositivo de destino.                                                   3. Clique em Run e o Android Studio instala e executa o app no dispositivo conectado.
+2. Na barra de ferramentas, selecione o dispositivo em que você quer executar o app no menu suspenso do dispositivo de destino.                                                 
+3. Clique em Run e o Android Studio instala e executa o app no dispositivo conectado.
 
 ## Como contribuir?
 Pelo fato de o Solvers ser livre para todos interessados, seu código é totalmente aberto para todos os interessados em aprimorar o ecossistema da aplicação. Confira a [licença](https://github.com/GabrielBhering-FMM/Solvers/blob/master/LICENSE).
