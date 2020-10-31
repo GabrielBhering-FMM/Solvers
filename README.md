@@ -9,6 +9,24 @@ Baseado nos problemas do milênio, o Solvers pretende a criar um ambiente de deb
 ## Público alvo 
 O Projeto tem como principal público, jovens acadêmicos, pessoas interessadas nas problemáticas das resoluções de questões matemáticas e usuários do sistema LaTeX que visam compartilhar fórmulas e documentos.
 
+
+## Nossa equipe:
+
+#### Nossa equipe é composta por 6 membros:
+<a href="https://github.com/GabrielBhering-FMM/Solvers/graphs/contributors">
+  <img src="https://contributors-img.web.app/image?repo=GabrielBhering-FMM/Solvers" />
+</a>
+
+ - Carla Amorim: CBeatriz (Design, teste)
+
+- Jonas Kauã: Jonas-Kaua (Design, teste)
+
+- Felipe Pires: felipe-pires270 (Design, teste)
+
+- Gabriel Rodrigues Bhering: GabrielBhering-FMM (Programação)
+
+- Pedro Henrique Souza Araújo: Ph-FMM (Programação)
+
 ## Como baixar?
 Para instalar o app Solvers, vá em [Tags](https://github.com/GabrielBhering-FMM/Solvers/tags) e selecione a versão mais recente e clique no arquivo com a terminação ```.apk```
 
