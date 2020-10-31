@@ -1,12 +1,6 @@
 # Solvers
-SOLVERS é um projeto de curso técnico desenvolvido em Java. Nosso enfoque é na discussão de problemas matemáticos.
-
-SOLVERS, baseado nos problemas do milênio, tem o intuito de criar um ambiente de discussão para qualquer tipo de problema lógico/matemático, tudo de forma simples e intuitiva.
-
-Para a instalação:
-
-Por que usar o SOLVERS?
-
-Recursos principais:
-
-Exemplos
+## Público alvo :
+O Projeto tem como principal público, jovens acadêmicos, pessoas 
+interessadas nas problemáticas das resoluções de questões 
+matemáticas e usuários do sistema LaTeX que visam compartilhar 
+fórmulas e documentos. 
