@@ -58,6 +58,16 @@ Imediatamente a Equipe Solvers irá conferir a validade dessas adições e/ou co
 
 Deseja somente reportar erros? Abra uma **Issue** na página do repositório do Solvers, explicando detalhadamente o erro encontrado, para assim a Equipe Solvers poder corrigi-lo o mais rapidamente.
 
+## Como gerar uma build/versão?
+
+Para fazer isso é bem simples
+
+Clone o repositório, abra-o no Android Studio, vá em ```build```, depois ```generate``` build e por fim ```build apk```. 
+
+Confira a imagem guia:
+
+![Imgur](https://imgur.com/rwcORXn.png)
+
 ## License
 
 See  [LICENSE](https://github.com/GabrielBhering-FMM/Solvers/blob/master/LICENSE).
