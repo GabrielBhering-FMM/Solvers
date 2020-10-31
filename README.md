@@ -1,12 +1,6 @@
 # Solvers
-SOLVERS é um projeto de curso técnico desenvolvido em Java. Nosso enfoque é na discussão de problemas matemáticos.
+Como gerar uma build/versão?
 
-SOLVERS, baseado nos problemas do milênio, tem o intuito de criar um ambiente de discussão para qualquer tipo de problema lógico/matemático, tudo de forma simples e intuitiva.
+Para fazer isso é bem simples
 
-Para a instalação:
-
-Por que usar o SOLVERS?
-
-Recursos principais:
-
-Exemplos
+Clone o repositório, abra-o no Android Studio, vá em build, depois generate build e por fim build apk 
