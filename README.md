@@ -17,6 +17,8 @@ Pedro Henrique Souza Araújo: Ph-FMM (Programação)
   <img src="https://contributors-img.web.app/image?repo=GabrielBhering-FMM/Solvers" />
 </a>
 
+Made with [contributors-img](https://contributors-img.web.app).
+
 
 ## License
 
