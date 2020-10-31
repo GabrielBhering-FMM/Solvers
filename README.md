@@ -1,4 +1,14 @@
-# Solvers
+
+# ![Imgur](https://imgur.com/Vjvbycd.png)
+
+Solvers é um projeto estudantil para dispositivos móveis em Java. 
+
+Nosso enfoque é a discussão de problemas matemáticos.
+
+Baseado nos problemas do milênio, o Solvers pretende a criar um ambiente de debate sobre estes e quaisquer problemas matemáticos/lógicos de forma simples e intuitiva com o uso de fórmulas matemáticas usando LaTeX.
+
+## Público alvo 
+O Projeto tem como principal público, jovens acadêmicos, pessoas interessadas nas problemáticas das resoluções de questões matemáticas e usuários do sistema LaTeX que visam compartilhar fórmulas e documentos.
 
 ## Como baixar?
 Para instalar o app Solvers, vá em [Tags](https://github.com/GabrielBhering-FMM/Solvers/tags) e selecione a versão mais recente e clique no arquivo com a terminação ```.apk```
@@ -21,6 +31,23 @@ Execute o app no seu dispositivo da seguinte maneira:
 1. No Android Studio, selecione seu app no menu suspenso de configurações de execução/depuração, na barra de ferramentas.
 2. Na barra de ferramentas, selecione o dispositivo em que você quer executar o app no menu suspenso do dispositivo de destino.                                                 
 3. Clique em Run e o Android Studio instala e executa o app no dispositivo conectado.
+
+## Nossa equipe:
+
+#### Nossa equipe é composta por 6 membros:
+<a href="https://github.com/GabrielBhering-FMM/Solvers/graphs/contributors">
+  <img src="https://contributors-img.web.app/image?repo=GabrielBhering-FMM/Solvers" />
+</a>
+
+ - Carla Amorim: CBeatriz (Design, teste)
+
+- Jonas Kauã: Jonas-Kaua (Design, teste)
+
+- Felipe Pires: felipe-pires270 (Design, teste)
+
+- Gabriel Rodrigues Bhering: GabrielBhering-FMM (Programação)
+
+- Pedro Henrique Souza Araújo: Ph-FMM (Programação)
 
 ## Como contribuir?
 Pelo fato de o Solvers ser livre para todos interessados, seu código é totalmente aberto para todos os interessados em aprimorar o ecossistema da aplicação. Confira a [licença](https://github.com/GabrielBhering-FMM/Solvers/blob/master/LICENSE).
