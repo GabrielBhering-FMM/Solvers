@@ -1,5 +1,8 @@
 # Solvers
 
+## Público alvo 
+O Projeto tem como principal público, jovens acadêmicos, pessoas interessadas nas problemáticas das resoluções de questões matemáticas e usuários do sistema LaTeX que visam compartilhar fórmulas e documentos.
+
 ## Como baixar?
 Para instalar o app Solvers, vá em [Tags](https://github.com/GabrielBhering-FMM/Solvers/tags) e selecione a versão mais recente e clique no arquivo com a terminação ```.apk```
 
