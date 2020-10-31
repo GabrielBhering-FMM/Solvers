@@ -13,6 +13,10 @@ Gabriel Rodrigues Bhering: GabrielBhering-FMM (Programação)
 
 Pedro Henrique Souza Araújo: Ph-FMM (Programação)
 
+<a href="https://github.com/GabrielBhering-FMM/Solvers/graphs/contributors">
+  <img src="https://contributors-img.web.app/image?repo=GabrielBhering-FMM/Solvers" />
+</a>
+
 
 ## License
 
