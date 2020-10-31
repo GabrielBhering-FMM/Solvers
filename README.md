@@ -13,7 +13,6 @@ Gabriel Rodrigues Bhering: GabrielBhering-FMM (Programação)
 
 Pedro Henrique Souza Araújo: Ph-FMM (Programação)
 
-<a href="../../graphs/contributors">
 
 ## License
 
