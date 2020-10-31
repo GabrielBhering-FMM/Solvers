@@ -10,6 +10,27 @@ Baseado nos problemas do milênio, o Solvers pretende a criar um ambiente de deb
 ## Público alvo 
 O Projeto tem como principal público, jovens acadêmicos, pessoas interessadas nas problemáticas das resoluções de questões matemáticas e usuários do sistema LaTeX que visam compartilhar fórmulas e documentos.
 
+## Como baixar?
+Para instalar o app Solvers, vá em [Tags](https://github.com/GabrielBhering-FMM/Solvers/tags) e selecione a versão mais recente e clique no arquivo com a terminação ```.apk```
+
+Em seguida o aplicativo será baixado no seu dispositivo.
+
+![Imgur](https://i.imgur.com/NBMAA4Z.png)
+
+## Como instalar?
+1. Conecte o dispositivo à máquina de desenvolvimento com um cabo USB. Se você desenvolveu no Windows, pode ser necessário instalar o drive USB adequado para seu dispositivo.
+2. Siga estas etapas para ativar a opção USB debugging na janela Developer options:
+- Abra o app Config.
+- Se o dispositivo usa o Android v8.0 ou versão posterior, selecione System. Caso contrário, avance para a próxima etapa.
+- Navegue até a parte inferior da tela e selecione About phone.
+- Navegue até a parte inferior da tela e toque em Build number sete vezes.
+- Volte à tela anterior, navegue até a parte inferior e toque em Developer options.
+- Na janela Developer options, role para baixo para encontrar e ativar a USB debugging.
+Execute o app no seu dispositivo da seguinte maneira:
+
+1. No Android Studio, selecione seu app no menu suspenso de configurações de execução/depuração, na barra de ferramentas.
+2. Na barra de ferramentas, selecione o dispositivo em que você quer executar o app no menu suspenso do dispositivo de destino.                                                 
+3. Clique em Run e o Android Studio instala e executa o app no dispositivo conectado.
 
 ## Nossa equipe:
 
@@ -27,13 +48,6 @@ O Projeto tem como principal público, jovens acadêmicos, pessoas interessadas 
 - Gabriel Rodrigues Bhering: GabrielBhering-FMM (Programação)
 
 - Pedro Henrique Souza Araújo: Ph-FMM (Programação)
-
-## Como baixar?
-Para instalar o app Solvers, vá em [Tags](https://github.com/GabrielBhering-FMM/Solvers/tags) e selecione a versão mais recente e clique no arquivo com a terminação ```.apk```
-
-Em seguida o aplicativo será baixado no seu dispositivo.
-
-![Imgur](https://i.imgur.com/NBMAA4Z.png)
 
 ## Como contribuir?
 Pelo fato de o Solvers ser livre para todos interessados, seu código é totalmente aberto para todos os interessados em aprimorar o ecossistema da aplicação. Confira a [licença](https://github.com/GabrielBhering-FMM/Solvers/blob/master/LICENSE).
