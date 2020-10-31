@@ -1,4 +1,4 @@
-# Solvers
+# ![Imgur](https://imgur.com/Vjvbycd.png)
 
 Solvers é um projeto estudantil para dispositivos móveis em Java. 
 
