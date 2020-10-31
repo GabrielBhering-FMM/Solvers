@@ -5,4 +5,4 @@ Nosso enfoque é a discussão de problemas matemáticos.
 
 Baseado nos problemas do milênio, o Solvers pretende a criar um ambiente de debate 
 sobre este e quaisquer problemas matemáticos/lógicos de forma simples 
-e intuitiva
+e intuitiva com o uso de fórmulas matemáticas usando LaTeX
