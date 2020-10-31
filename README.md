@@ -1,12 +1,15 @@
 # Solvers
-SOLVERS é um projeto de curso técnico desenvolvido em Java. Nosso enfoque é na discussão de problemas matemáticos.
 
-SOLVERS, baseado nos problemas do milênio, tem o intuito de criar um ambiente de discussão para qualquer tipo de problema lógico/matemático, tudo de forma simples e intuitiva.
+## Nossa equipe:
+Nossa equipe é composta por 6 membros:
+Carla Amorim: CBeatriz (Design, teste)
+Jonas Kauã: Jonas-Kaua (Design, teste)
+Felipe Pires: felipe-pires270 (Design, teste)
+Gabriel Rodrigues Bhering: GabrielBhering-FMM (Programação)
+Pedro Henrique Souza Araújo: Ph-FMM (Programação)
 
-Para a instalação:
+## License
 
-Por que usar o SOLVERS?
+See  [LICENSE](https://github.com/GabrielBhering-FMM/Solvers/blob/master/LICENSE).
 
-Recursos principais:
-
-Exemplos
+Copyright © 2020 Solvers. All Rights Reserved.
