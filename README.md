@@ -2,11 +2,17 @@
 
 ## Nossa equipe:
 Nossa equipe é composta por 6 membros:
+
 Carla Amorim: CBeatriz (Design, teste)
+
 Jonas Kauã: Jonas-Kaua (Design, teste)
+
 Felipe Pires: felipe-pires270 (Design, teste)
+
 Gabriel Rodrigues Bhering: GabrielBhering-FMM (Programação)
+
 Pedro Henrique Souza Araújo: Ph-FMM (Programação)
+
 
 ## License
 
