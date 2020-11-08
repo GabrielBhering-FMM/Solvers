@@ -15,4 +15,9 @@
     <string name="txt_info_pw">Para recuperar sua senha, informe seu e-mail abaixo e siga as instruções</string>
     <string name="txt_esquecipw">Esqueceu sua senha?</string>
     <string name="view_voltarpw">Voltar</string>
+    <string name="app_howto">Bem vindo ao Solvers, um aplicativo desenvolvido \npara o compartilhamento e resolução de questões.\nPara criar um questão, aperte no botão com símbolo\nde +
+        na página principal. Para resolver uma questão,\nclique na questão desejada e adicione um comentário\ncom a resposta.</string>
+    <string name="app_suporte">Visando proporcionar uma experiência comfortável\npara o usuário, o aplicativo Solvers tem suporte para o sistema de preparação de documentos LaTeX e a liguagem de marcação HTML 5.
+        \n\nPara escrever usando LaTeX, utilize $$ entre o texto. Exemplo: $\frac{5}{6}$\n\n
+        Para escrever usando HTML, utilize &lt; / &gt;  entre o texto.</string>
 </resources>

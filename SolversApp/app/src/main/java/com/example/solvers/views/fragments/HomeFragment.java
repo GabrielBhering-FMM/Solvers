@@ -24,7 +24,9 @@ import com.example.solvers.adapters.PostRecyclerViewAdapter;
 import com.example.solvers.models.Post;
 import com.example.solvers.utils.StringSimilarity;
 import com.example.solvers.views.CreatePostActivity;
+import com.example.solvers.views.HomeActivity;
 import com.example.solvers.views.PostInfoActivity;
+import com.example.solvers.views.SolversHowTo;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -50,6 +52,7 @@ public class HomeFragment extends Fragment {
     PostRecyclerViewAdapter postAdapter;
 
     FloatingActionButton btCreatPost;
+    FloatingActionButton btInfo;
 
     FirebaseAuth mFirebaseAuth;
 
@@ -125,6 +128,12 @@ public class HomeFragment extends Fragment {
         btCreatPost = view.findViewById(R.id.floatingActionButton);
         btCreatPost.setOnClickListener(view -> {
             Intent intent = new Intent(view.getContext(), CreatePostActivity.class);
+            startActivity(intent);
+        });
+
+        btInfo = view.findViewById(R.id.floatingActionButtonINFO);
+        btInfo.setOnClickListener(view -> {
+            Intent intent = new Intent(view.getContext(), SolversHowTo.class);
             startActivity(intent);
         });
 

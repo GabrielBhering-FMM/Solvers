@@ -99,6 +99,22 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:layout_weight="0"
+                android:foreground="@color/colorAccent"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_weight="0"
+                android:foreground="@color/ic_launcher_background"
+                android:orientation="vertical"></LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
                 android:gravity="start"
@@ -114,7 +130,7 @@
 
                 <TextView
                     android:id="@+id/author_name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="347dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="start|center_vertical"
@@ -122,6 +138,15 @@
                     android:text="User"
                     android:textColor="@color/textPrimary"
                     android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:layout_weight="0"
+                android:foreground="@color/colorAccent"
+                android:orientation="vertical">
 
             </LinearLayout>
 
