@@ -49,6 +49,8 @@ Execute o app no seu dispositivo da seguinte maneira:
 
 - Pedro Henrique Souza Araújo: Ph-FMM (Programação)
 
+- Edmilson José: Edmilson-Jose-FMM (Design, teste)
+
 ## Como contribuir?
 Pelo fato de o Solvers ser livre para todos interessados, seu código é totalmente aberto para todos os interessados em aprimorar o ecossistema da aplicação. Confira a [licença](https://github.com/GabrielBhering-FMM/Solvers/blob/master/LICENSE).
 
