@@ -47,7 +47,7 @@ Execute o app no seu dispositivo da seguinte maneira:
 
 - Felipe Pires: felipe-pires270 (Design, teste)
 
-- Gabriel Rodrigues Bhering: GabrielBhering-FMM (Programação)
+- Gabriel Rodrigues Bhering: GabrielBhering-FMM (Programação, design, mídia)
 
 - Pedro Henrique Souza Araújo: Ph-FMM (Programação)
 
